@@ -1,3 +1,4 @@
+import { MaterialConvenienceModule } from './convenience/material-convenience.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -13,7 +14,8 @@ import { NgxElectronModule } from 'ngx-electron';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxElectronModule
+    NgxElectronModule,
+    MaterialConvenienceModule
   ],
   providers: [],
   bootstrap: [AppComponent]
