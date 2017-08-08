@@ -4,11 +4,13 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --base-href=.",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-electron": "ng build --base-href . && copy src\\electron\\* dist",
+    "electron": "npm run build-electron && electron dist"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +29,7 @@
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
+    "ngx-electron": "^1.0.3",
     "rxjs": "^5.4.1",
     "zone.js": "^0.8.14"
   },
