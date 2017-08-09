@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ElectronService } from 'ngx-electron';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,12 @@ import { ElectronService } from 'ngx-electron';
 export class AppComponent {
   title = 'app';
 
-  constructor(private electronService: ElectronService) {
-    this.electronService.ipcRenderer.on('navigate-to', (event, msg) => {
-      console.log('Navigate received');
-      console.log(msg);
-    });
+  constructor(private electronService: ElectronService, private router: Router) {
+    if (this.electronService.isElectronApp) {
+      this.electronService.ipcRenderer.on('navigate-to', (event, msg) => {
+        console.log(`Received navigate-to: ${msg}`);
+        this.router.navigate([`/${msg}`]);
+      });
+    }
   }
 }
