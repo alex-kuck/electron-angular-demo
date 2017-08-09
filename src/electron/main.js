@@ -87,13 +87,13 @@ const template = [{
     submenu: [{
         label: 'Show Form',
         click(menuItem, browserWindow, event) {
-          require('electron').shell.openExternal('https://google.de')
+          browserWindow.webContents.send('navigate-to', 'form');
         }
       },
       {
         label: 'Show Home',
         click(menuItem, browserWindow, event) {
-          console.log('Show Home clicked');
+          browserWindow.webContents.send('navigate-to', 'home');
         }
       }
     ]
