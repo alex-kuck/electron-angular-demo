@@ -1,13 +1,180 @@
 const {
   app,
   BrowserWindow,
-  ipcMain
+  ipcMain,
+  Menu
 } = require('electron');
 const path = require('path');
 const url = require('url');
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
+
+const template = [{
+    label: 'Edit',
+    submenu: [{
+        role: 'undo'
+      },
+      {
+        role: 'redo'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'cut'
+      },
+      {
+        role: 'copy'
+      },
+      {
+        role: 'paste'
+      },
+      {
+        role: 'pasteandmatchstyle'
+      },
+      {
+        role: 'delete'
+      },
+      {
+        role: 'selectall'
+      }
+    ]
+  },
+  {
+    label: 'View',
+    submenu: [{
+        role: 'reload'
+      },
+      {
+        role: 'forcereload'
+      },
+      {
+        role: 'toggledevtools'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'resetzoom'
+      },
+      {
+        role: 'zoomin'
+      },
+      {
+        role: 'zoomout'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'togglefullscreen'
+      }
+    ]
+  },
+  {
+    role: 'window',
+    submenu: [{
+        role: 'minimize'
+      },
+      {
+        role: 'close'
+      }
+    ]
+  },
+  {
+    label: 'Navigation',
+    submenu: [{
+        label: 'Show Form',
+        click(menuItem, browserWindow, event) {
+          require('electron').shell.openExternal('https://google.de')
+        }
+      },
+      {
+        label: 'Show Home',
+        click(menuItem, browserWindow, event) {
+          console.log('Show Home clicked');
+        }
+      }
+    ]
+  },
+  {
+    role: 'help',
+    submenu: [{
+      label: 'Learn More',
+      click() {
+        require('electron').shell.openExternal('https://electron.atom.io')
+      }
+    }]
+  }
+]
+
+if (process.platform === 'darwin') {
+  template.unshift({
+    label: app.getName(),
+    submenu: [{
+        role: 'about'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'services',
+        submenu: []
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'hide'
+      },
+      {
+        role: 'hideothers'
+      },
+      {
+        role: 'unhide'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'quit'
+      }
+    ]
+  })
+
+  // Edit menu
+  template[1].submenu.push({
+    type: 'separator'
+  }, {
+    label: 'Speech',
+    submenu: [{
+        role: 'startspeaking'
+      },
+      {
+        role: 'stopspeaking'
+      }
+    ]
+  })
+
+  // Window menu
+  template[3].submenu = [{
+      role: 'close'
+    },
+    {
+      role: 'minimize'
+    },
+    {
+      role: 'zoom'
+    },
+    {
+      type: 'separator'
+    },
+    {
+      role: 'front'
+    }
+  ]
+}
 
 function createWindow() {
   // Create the browser window.
@@ -30,6 +197,9 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null
   });
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
 }
 // Basic reply for async-message
 ipcMain.on('async-message', (event, arg) => {
