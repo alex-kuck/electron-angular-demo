@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
 
   constructor(private electronService: ElectronService, private router: Router) {
     if (this.electronService.isElectronApp) {

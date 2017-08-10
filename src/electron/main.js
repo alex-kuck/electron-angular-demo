@@ -83,22 +83,6 @@ const template = [{
     ]
   },
   {
-    label: 'Navigation',
-    submenu: [{
-        label: 'Show Form',
-        click(menuItem, browserWindow, event) {
-          browserWindow.webContents.send('navigate-to', 'form');
-        }
-      },
-      {
-        label: 'Show Home',
-        click(menuItem, browserWindow, event) {
-          browserWindow.webContents.send('navigate-to', 'home');
-        }
-      }
-    ]
-  },
-  {
     role: 'help',
     submenu: [{
       label: 'Learn More',
@@ -175,6 +159,16 @@ if (process.platform === 'darwin') {
     }
   ]
 }
+
+ipcMain.on('async-message', (event, msg) => {
+  let myNotification = new Notification('Angular Demo', {
+    body: msg
+  })
+
+  myNotification.onclick = () => {
+    console.log('Notification clicked')
+  }
+});
 
 function createWindow() {
   // Create the browser window.

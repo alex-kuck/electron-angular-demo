@@ -1,3 +1,11 @@
-<p>
-  form works!
-</p>
+<h1>An example form</h1>
+
+<form class="example-form">
+  <div class="row">
+    <app-person-form [person]="data.thePerson" [title]="'person'" [disabledMarried]="false"></app-person-form>
+  </div>
+  <br/><br/>
+  <div *ngIf="data.thePerson.married" class="row">
+    <app-person-form [person]="data.spouse" [title]="'spouse'" [disabledMarried]="true"></app-person-form>
+  </div>
+</form>

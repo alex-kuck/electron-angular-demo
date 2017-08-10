@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MdInputModule, MdTabsModule, MdToolbarModule } from '@angular/material';
+import { MdInputModule, MdRadioModule, MdTabsModule, MdToolbarModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     MdInputModule,
     MdToolbarModule,
-    MdTabsModule
+    MdTabsModule,
+    MdRadioModule
   ],
   declarations: [],
   exports: [
     MdInputModule,
     MdToolbarModule,
-    MdTabsModule
+    MdTabsModule,
+    MdRadioModule
   ]
 })
 export class MaterialConvenienceModule { }

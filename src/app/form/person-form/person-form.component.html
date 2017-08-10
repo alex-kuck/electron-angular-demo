@@ -1,0 +1,37 @@
+<h2>The {{title}}'s data:</h2>
+<div class="col col-lg-6">
+  <md-input-container class="example-full-width">
+    <input mdInput required [(ngModel)]="person.name" name="{{title}}.name" placeholder="Name">
+  </md-input-container>
+  <md-input-container class="example-full-width">
+    <input mdInput required placeholder="Firstname" [(ngModel)]="person.firstname" name="{{title}}.firstname">
+  </md-input-container>
+  <md-radio-group class="example-full-width" [(ngModel)]="person.male" name="{{title}}.male">
+    <md-radio-button [value]="true">Male</md-radio-button>
+    <md-radio-button [value]="false">Female</md-radio-button>
+  </md-radio-group>
+  <md-input-container class="example-full-width">
+    <input type="email"
+           mdInput
+           required
+           placeholder="E-Mail"
+           [(ngModel)]="person.email"
+           name="{{title}}.email"
+           [formControl]="emailFormControl">
+    <md-error *ngIf="emailFormControl.hasError('pattern')">
+      Please enter a valid email address
+    </md-error>
+    <md-error *ngIf="emailFormControl.hasError('required')">
+      Email is <strong>required</strong>
+    </md-error>
+  </md-input-container>
+  <md-radio-group class="example-full-width" [(ngModel)]="person.married" name="{{title}}.married">
+    <md-radio-button [value]="true">Married</md-radio-button>
+    <md-radio-button [value]="false" disabled="{{disabledMarried}}">Not married</md-radio-button>
+    <md-radio-button disabled="">It's complicated</md-radio-button>
+  </md-radio-group>
+</div>
+<div class="col col-lg-6">
+  <h3>The {{title}}:</h3>
+  {{person | json}}
+</div>

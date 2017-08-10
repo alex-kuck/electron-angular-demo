@@ -1,6 +1,8 @@
-<md-toolbar *ngIf="!electronService.isElectronApp">
+<md-toolbar >
   <span>Brand</span>
   <a routerLink="home">Home</a>
   <a routerLink="form">Form</a>
 </md-toolbar>
-<router-outlet></router-outlet>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
